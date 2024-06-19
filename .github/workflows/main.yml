@@ -47,10 +47,10 @@ jobs:
           sudo npm install strapi@beta -g
 
           # Create a new Strapi project
-          strapi new veera-project --dbclient=sqlite
+          strapi new my-project --dbclient=sqlite
 
           # Navigate to the new project directory
-          cd veera-project
+          cd my-project
 
           # Start the Strapi application using pm2
           pm2 start npm --name "strapi" -- run develop
