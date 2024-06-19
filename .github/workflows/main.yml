@@ -47,10 +47,10 @@ jobs:
           sudo npm install strapi@beta -g
 
           # Create a new Strapi project
-          strapi new my-project --dbclient=sqlite
+          strapi new new-project --dbclient=sqlite
 
           # Navigate to the new project directory
-          cd my-project
+          cd new-project
 
           # Start the Strapi application using pm2
           pm2 start npm --name "strapi" -- run develop
