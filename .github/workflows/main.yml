@@ -1,0 +1,55 @@
+
+name: CI/CD for Strapi
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Upgrade npm
+      run: npm install -g npm@latest
+
+    - name: Clear npm cache
+      run: npm cache clean --force
+
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          set -e
+
+          # Update the package list and install Node.js and npm
+          sudo apt update
+          sudo apt install -y nodejs npm
+
+          # Clone the Strapi repository
+          git clone https://github.com/ashitha99/new-strapi.git
+          cd new-strapi/myproject
+
+          # Install Strapi globally
+          sudo npm install strapi@beta -g
+
+          # Create a new Strapi project
+          npx create-strapi-app@latest my-project
+
+          # Navigate to the new project directory
+          cd /home/ubuntu/new-strapi/my-project
+
+          # Start the Strapi application using pm2
+          pm2 start npm --name "strapi" -- run develop
