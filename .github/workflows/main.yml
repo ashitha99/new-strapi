@@ -59,4 +59,4 @@ jobs:
           cd new-project
 
           # Start the Strapi application 
-          npm run develop
+           pm2 start npm --name "strapi" -- run develop
