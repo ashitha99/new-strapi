@@ -52,5 +52,5 @@ jobs:
           # Install project dependencies
           npm install
 
-          # Start the Strapi application using pm2
+          # Start the Strapi application using pm2 .
           pm2 start npm --name "strapi" -- run develop
