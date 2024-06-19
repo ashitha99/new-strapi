@@ -40,11 +40,6 @@ jobs:
           # Install Node.js and npm if not installed
           sudo apt install -y nodejs npm
 
-          # Remove the existing Strapi directory if it exists
-          if [ -d "new-strapi" ]; then
-            rm -rf new-strapi
-          fi
-
           # Clone the Strapi repository
           git clone https://github.com/ashitha99/new-strapi.git
 
