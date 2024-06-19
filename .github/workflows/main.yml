@@ -1,4 +1,3 @@
-
 name: CI/CD for Strapi
 
 on:
@@ -34,9 +33,17 @@ jobs:
         script: |
           set -e
 
-          # Update the package list and install Node.js and npm
+          # Update the package list and upgrade packages
           sudo apt update
+          sudo apt upgrade -y
+
+          # Install Node.js and npm if not installed
           sudo apt install -y nodejs npm
+
+          # Remove the existing Strapi directory if it exists
+          if [ -d "new-strapi" ]; then
+            rm -rf new-strapi
+          fi
 
           # Clone the Strapi repository
           git clone https://github.com/ashitha99/new-strapi.git
