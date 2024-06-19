@@ -8,7 +8,7 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Check out repository
       uses: actions/checkout@v2
@@ -35,16 +35,24 @@ jobs:
 
           # Update the package list and install Node.js and npm
           sudo apt update
-          sudo apt install -y nodejs npm
+          sudo apt install -y nodejs npm git
 
+          # Remove the existing new-strapi directory if it exists
+          if [ -d "new-strapi" ]; then
+            sudo rm -rf new-strapi
+          fi
 
           # Clone the Strapi repository
           git clone https://github.com/ashitha99/new-strapi.git
           cd new-strapi
 
+          # Remove the existing my-project directory if it exists
+          if [ -d "my-project" ]; then
+            sudo rm -rf my-project
+          fi
 
           # Create a new Strapi project
-          npx create-strapi-app@latest my-project
+          npx create-strapi-app@latest my-project --quickstart
 
           # Navigate to the new project directory
           cd my-project
@@ -52,5 +60,8 @@ jobs:
           # Install project dependencies
           npm install
 
-          # Start the Strapi application using pm2 .
+          # Start the Strapi application using pm2
           pm2 start npm --name "strapi" -- run develop
+
+          # Save the pm2 process list and corresponding environments
+          pm2 save
