@@ -40,7 +40,6 @@ jobs:
 
           # Clone the Strapi repository
           git clone https://github.com/ashitha99/new-strapi.git
-          cd new-strapi
 
           # Install Strapi globally
           sudo npm install strapi@beta -g
@@ -49,7 +48,7 @@ jobs:
           strapi new veera-project --dbclient=sqlite
 
           # Navigate to the new project directory
-          cd veera-project
+          cd /home/ubuntu/new-strapi/veera-project
 
           # Start the Strapi application using pm2
           pm2 start npm --name "strapi" -- run develop
