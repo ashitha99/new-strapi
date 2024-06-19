@@ -37,17 +37,14 @@ jobs:
           sudo apt update
           sudo apt install -y nodejs npm
 
-          # Check if the new-strapi directory exists and remove it if it does
-          if [ -d "new-strapi" ]; then
-            rm -rf new-strapi
-          fi
-
+  
           # Clone the Strapi repository
           git clone https://github.com/ashitha99/new-strapi.git
           cd new-strapi
 
           # Install Strapi globally
           sudo npm install strapi@beta -g
+
 
           # Create a new Strapi project
           npx create-strapi-app@latest my-project
