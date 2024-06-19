@@ -40,6 +40,11 @@ jobs:
           # Install Node.js and npm if not installed
           sudo apt install -y nodejs npm
 
+          # Check if the 'new-strapi' directory exists and is not empty, and remove it if necessary
+          if [ -d "new-strapi" ]; then
+            rm -rf new-strapi
+          fi
+
           # Clone the Strapi repository
           git clone https://github.com/ashitha99/new-strapi.git
           cd new-strapi
@@ -53,5 +58,5 @@ jobs:
           # Navigate to the new project directory
           cd new-project
 
-          # Start th Strapi application using pm2
+          # Start the Strapi application using pm2
           pm2 start npm --name "strapi" -- run develop
