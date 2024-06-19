@@ -51,8 +51,8 @@ jobs:
             sudo rm -rf my-project
           fi
 
-          # Create a new Strapi project
-          npx create-strapi-app@latest my-project --quickstart
+          # Create a new Strapi project without running it
+          npx create-strapi-app@latest my-project --no-run --quickstart --skip-auth
 
           # Navigate to the new project directory
           cd my-project
